@@ -1,9 +1,12 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery } from '@tanstack/react-query'
+import { sleep } from '../../helpers/sleep'
 
 async function getLabels(): Promise<any[]> {
   try {
     const res = await fetch('https://api.github.com/repos/facebook/react/labels')
     const data = await res.json()
+
+    await sleep(1500)
 
     return data
   } catch (error) {
