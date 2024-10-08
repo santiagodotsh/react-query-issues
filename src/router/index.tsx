@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: 'list', element: <ListView /> },
-      { path: 'issue/:id', element: <IssueView /> },
+      { path: 'issue/:number', element: <IssueView /> },
       { path: '*', element: <Navigate to='list' /> }
     ]
   },

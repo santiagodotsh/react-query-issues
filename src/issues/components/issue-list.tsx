@@ -1,6 +1,11 @@
 import { IssueItem } from './issue-item'
+import { Issue } from '../interfaces/issue'
 
-export function IssueList() {
+interface Props {
+  issues: Issue[]
+}
+
+export function IssueList({ issues }: Props) {
   return (
     <>
       <div className='flex gap-4'>
@@ -10,8 +15,8 @@ export function IssueList() {
       </div>
 
       <div className='mt-4'>
-        {[1, 2, 3].map((issue) => (
-          <IssueItem key={issue} />
+        {issues.map(issue => (
+          <IssueItem key={issue.id} issue={issue} />
         ))}
       </div>
     </>
