@@ -1,17 +1,34 @@
 import { IssueItem } from './issue-item'
-import { Issue } from '../interfaces/issue'
+import { type Issue, State } from '../interfaces/issue'
 
 interface Props {
   issues: Issue[]
+  onStateChange: (state: State) => void
+  state: State
 }
 
-export function IssueList({ issues }: Props) {
+export function IssueList({ issues, onStateChange, state }: Props) {
   return (
     <>
       <div className='flex gap-4'>
-        <button className='btn active'>All</button>
-        <button className='btn'>Open</button>
-        <button className='btn'>Closed</button>
+        <button
+          onClick={() => onStateChange(State.All)}
+          className={`btn ${state === State.All && 'active'}`}
+        >
+          All
+        </button>
+        <button
+          onClick={() => onStateChange(State.Open)}
+          className={`btn ${state === State.Open && 'active'}`}
+        >
+          Open
+        </button>
+        <button
+          onClick={() => onStateChange(State.Close)}
+          className={`btn ${state === State.Close && 'active'}`}
+        >
+          Closed
+        </button>
       </div>
 
       <div className='mt-4'>
