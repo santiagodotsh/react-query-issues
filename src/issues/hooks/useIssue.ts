@@ -10,10 +10,9 @@ export function useIssue(issueNumber: number) {
   })
 
   const comments = useQuery({
-    queryKey: ['issues', issue.data?.number, 'comments'],
-    queryFn: () => getComments(issue.data!.number),
-    staleTime: 1000 * 60,
-    enabled: issue.data !== undefined
+    queryKey: ['issues', issueNumber, 'comments'],
+    queryFn: () => getComments(issueNumber),
+    staleTime: 1000 * 60
   })
 
   return {
