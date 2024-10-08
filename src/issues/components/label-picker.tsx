@@ -6,9 +6,9 @@ export function LabelPicker() {
 
   if (labels.isLoading) {
     return (
-      <span className='flex justify-center items-center h-52'>
+      <div className='flex justify-center items-center h-52'>
         <Spinner />
-      </span>
+      </div>
     )
   }
 
