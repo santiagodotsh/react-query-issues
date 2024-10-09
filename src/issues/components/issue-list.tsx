@@ -24,8 +24,8 @@ export function IssueList({ issues, onStateChange, state }: Props) {
           Open
         </button>
         <button
-          onClick={() => onStateChange(State.Close)}
-          className={`btn ${state === State.Close && 'active'}`}
+          onClick={() => onStateChange(State.Closed)}
+          className={`btn ${state === State.Closed && 'active'}`}
         >
           Closed
         </button>
