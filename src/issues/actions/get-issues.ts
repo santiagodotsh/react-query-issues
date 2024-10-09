@@ -5,9 +5,10 @@ import { type Issue, State } from '../interfaces/issue'
 interface Props {
   state: State
   selectedLabels: string[]
+  page: number
 }
 
-export async function getIssues({ state, selectedLabels }: Props): Promise<Issue[]> {
+export async function getIssues({ state, selectedLabels, page }: Props): Promise<Issue[]> {
   const params = new URLSearchParams()
 
   if (state !== State.All) {
@@ -17,6 +18,9 @@ export async function getIssues({ state, selectedLabels }: Props): Promise<Issue
   if (selectedLabels.length > 0) {
     params.append('labels', selectedLabels.join(','))
   }
+
+  params.append('page', `${page}`)
+  params.append('per_page', '5')
 
   const { data } = await github.get<Issue[]>('/issues', { params })
 
