@@ -9,12 +9,7 @@ export function ListView() {
   const [state, setState] = useState<State>(State.All)
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   
-  const {
-    issues,
-    page,
-    prevPage,
-    nextPage
-  } = useIssues({ state, selectedLabels })
+  const { issues } = useIssues({ state, selectedLabels })
 
   const onLabelSelected = (label: string) => {
     if (selectedLabels.includes(label)) {
@@ -29,31 +24,21 @@ export function ListView() {
       <div className='col-span-1 sm:col-span-2'>
         {issues.isLoading
           ? <Spinner />
-          : <>
+          : <div className='flex flex-col justify-center'>
               <IssueList
-                issues={issues.data ?? []}
+                issues={issues.data?.pages.flat() ?? []}
                 onStateChange={setState}
                 state={state}
               />
 
-              <div className='flex justify-between items-center'>
-                <button
-                  onClick={prevPage}
-                  className='p-2 bg-blue-500 hover:bg-blue-700 transition-all'
-                >
-                  Previous
-                </button>
-
-                <span>{page}</span>
-
-                <button
-                  onClick={nextPage}
-                  className='p-2 bg-blue-500 hover:bg-blue-700 transition-all'
-                >
-                  Next
-                </button>
-              </div>
-            </>
+              <button
+                onClick={() => issues.fetchNextPage()}
+                className='p-2 bg-blue-500 hover:bg-blue-700 transition-all disabled:bg-gray-500'
+                disabled={issues.isFetchingNextPage}
+              >
+                {issues.isFetchingNextPage ? 'Loading...' : 'View more...'}
+              </button>
+            </div>
         }
       </div>
 
